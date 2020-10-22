@@ -12,8 +12,8 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(nullable: false),
-                    CreatedAt = table.Column<DateTime>(nullable: false, defaultValue: new DateTime()),
-                    UpdatedAt = table.Column<DateTime>(nullable: false, defaultValue: new DateTime()),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     FormattedName = table.Column<string>(nullable: true)
                 },
