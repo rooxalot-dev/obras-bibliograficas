@@ -1,4 +1,5 @@
-﻿using Domain.Exceptions;
+﻿using Domain.Entites;
+using Domain.Exceptions;
 using Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -17,25 +18,30 @@ namespace Domain.Services
             _namesRepository = namesRepository;
         }
 
-        public List<string> SaveNames(List<string> names)
+        public List<Author> SaveAuthors(List<Author> authors)
         {
-            if (names == null || names.Count == 0)
+            if (authors == null || authors.Count == 0)
             {
                 throw new DomainException("A lista de nomes deve ser informada!");
             }
 
-            var formattedNames = names.Select((name) => FormatName(name)).ToList();
+            var formattedAuthors = authors.Select((author) => {
+                var formattedName = FormatName(author.Name);
+                author.FormattedName = formattedName;
 
-            var savedNames = this._namesRepository.SaveNames(formattedNames);
+                return author;
+            }).ToList();
 
-            return savedNames;
+            var savedAuthors = this._namesRepository.SaveAuthors(formattedAuthors);
+
+            return savedAuthors;
         }
 
-        public List<string> GetNames(string nameFilter)
+        public List<Author> GetAuthors(string nameFilter)
         {
-            var savedNames = this._namesRepository.GetNames(nameFilter);
+            var savedAuthors = this._namesRepository.GetAuthors(nameFilter);
 
-            return savedNames;
+            return savedAuthors;
         }
 
         private string FormatName(string name) 

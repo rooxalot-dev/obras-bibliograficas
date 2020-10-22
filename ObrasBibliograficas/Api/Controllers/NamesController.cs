@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Entites;
 using Domain.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,19 +21,19 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public List<string> Post([FromBody] List<string> namesList)
+        public List<Author> Post([FromBody] List<Author> authors)
         {
-            var formatedNames = this._namesService.SaveNames(namesList);
+            var savedAuthors = this._namesService.SaveAuthors(authors);
 
-            return formatedNames;
+            return savedAuthors;
         }
 
         [HttpGet]
-        public List<string> Get(string nameFilter)
+        public List<Author> Get(string nameFilter)
         {
-            var savedNames = this._namesService.GetNames(nameFilter);
+            var savedAuthors = this._namesService.GetAuthors(nameFilter);
 
-            return savedNames;
+            return savedAuthors;
         }
     }
 }

@@ -1,3 +1,4 @@
+using Domain.Entites;
 using Domain.Exceptions;
 using Domain.Services;
 using System;
@@ -23,44 +24,47 @@ namespace Test.Domain
         public void DeveLancarExcecaoCasoListagemEstejaVaziaOuNula()
         {
             Assert.Throws<DomainException>(() => {
-                _namesService.SaveNames(null);
+                _namesService.SaveAuthors(null);
             });
 
             Assert.Throws<DomainException>(() => {
-                _namesService.SaveNames(new List<string>());
+                _namesService.SaveAuthors(new List<Author>());
             });
         }
 
         [Fact(DisplayName = "Deve retornar o ultimo sobrenome do nome completo informado totalmente em maiusculo")]
         public void DeveRetornarUltimoSobrenomeMaiusculo()
         {
-            var namesList = new List<string> { "rodrigo martins de azevedo" };
+            var authorsList = new List<Author> { new Author { Name = "rodrigo martins de azevedo" } };
 
-            var savedNames = _namesService.SaveNames(namesList);
-            var savedName = savedNames.FirstOrDefault();
+            var savedAuthors = _namesService.SaveAuthors(authorsList);
+            var savedAuthor = savedAuthors.FirstOrDefault();
 
-            Assert.Equal("AZEVEDO, Rodrigo Martins de", savedName);
+            Assert.Equal("AZEVEDO, Rodrigo Martins de", savedAuthor.FormattedName);
         }
 
         [Fact(DisplayName = "Deve retornar o único nome informado totalmente em maíusculo")]
         public void DeveRetornarUnicoNomeTotalmenteMaiusculo()
         {
-            var namesList = new List<string> { "Guimarães" };
+            var authorsList = new List<Author> { new Author { Name = "Guimarães" } };
 
-            var savedNames = _namesService.SaveNames(namesList);
-            var savedName = savedNames.FirstOrDefault();
+            var savedAuthors = _namesService.SaveAuthors(authorsList);
+            var savedAuthor = savedAuthors.FirstOrDefault();
 
-            Assert.Equal("GUIMARÃES", savedName);
+            Assert.Equal("GUIMARÃES", savedAuthor.FormattedName);
         }
 
         [Fact(DisplayName = "Adiciona outras partes do nome em maíusculo caso o ultimo sobrenome seja familiar (?)")]
         public void AdicionarPartesNomeMaiusculoCasoUltimoSobrenomeSejaFamiliar()
         {
-            var namesList = new List<string> { "Joao Silva Neto", "Joao Neto" };
+            var authorsList = new List<Author> { 
+                new Author { Name = "Joao Silva Neto" },
+                new Author { Name = "Joao Neto" },
+            };
 
-            var savedNames = _namesService.SaveNames(namesList);
-            var firstSavedName = savedNames.FirstOrDefault();
-            var lastSavedName = savedNames.LastOrDefault();
+            var savedAuthors = _namesService.SaveAuthors(authorsList);
+            var firstSavedName = savedAuthors.FirstOrDefault()?.FormattedName;
+            var lastSavedName = savedAuthors.LastOrDefault()?.FormattedName;
 
             Assert.Equal("SILVA NETO, Joao", firstSavedName);
             Assert.Equal("NETO, Joao", lastSavedName);

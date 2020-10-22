@@ -1,4 +1,5 @@
-﻿using Domain.Repositories;
+﻿using Domain.Entites;
+using Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,17 +8,17 @@ namespace Test.Mocks
 {
     public class NamesRepositoryMock : INamesRepository
     {
-        private List<string> savedNames = new List<string>();
+        private List<Author> savedAuthors = new List<Author>();
 
-        public List<string> GetNames(string name)
+        public List<Author> GetAuthors(string name)
         {
-            return savedNames;
+            return savedAuthors;
         }
 
-        public List<string> SaveNames(List<string> names)
+        public List<Author> SaveAuthors(List<Author> authors)
         {
-            savedNames.AddRange(names);
-            return names;
+            savedAuthors.AddRange(authors);
+            return authors;
         }
     }
 }

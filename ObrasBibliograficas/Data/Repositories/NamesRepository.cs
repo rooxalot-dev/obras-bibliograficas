@@ -1,23 +1,57 @@
-﻿using Domain.Repositories;
+﻿using Data.Context;
+using Domain.Entites;
+using Domain.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Data.Repositories
 {
-    public class NamesRepository : INamesRepository
+    public class NamesRepository : INamesRepository, IDisposable
     {
-        private List<string> savedNames = new List<string>();
+        private ObrasContext _obrasContext;
+        private List<Author> savedNames = new List<Author>();
 
-        public List<string> GetNames(string name)
+        public NamesRepository(ObrasContext obrasContext)
         {
-            return savedNames;
+            _obrasContext = obrasContext;
         }
 
-        public List<string> SaveNames(List<string> names)
+        public List<Author> GetAuthors(string name)
         {
-            savedNames.AddRange(names);
-            return names;
+            IEnumerable<Author> foundAuthors;
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                foundAuthors = _obrasContext.Author.Where((author) => author.FormattedName.ToLower().Contains(name));
+            }
+            else 
+            {
+                foundAuthors = _obrasContext.Author;
+            }
+
+            return foundAuthors.ToList();
+        }
+
+        public List<Author> SaveAuthors(List<Author> authors)
+        {
+            var namesList = authors.Select((author) => author.FormattedName);
+
+            using (_obrasContext) 
+            {
+                _obrasContext.Author.AddRange(authors);
+                _obrasContext.SaveChanges();
+
+                var savedAuthors = _obrasContext.Author.Where((author) => namesList.Contains(author.FormattedName));
+
+                return savedAuthors.ToList();
+            }
+        }
+
+        public void Dispose()
+        {
+            _obrasContext.Dispose();
         }
     }
 }
