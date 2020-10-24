@@ -9,11 +9,11 @@ using System.Text;
 
 namespace Domain.Services
 {
-    public class NamesService
+    public class AuthorsService
     {
         private INamesRepository _namesRepository;
 
-        public NamesService(INamesRepository namesRepository) 
+        public AuthorsService(INamesRepository namesRepository) 
         {
             _namesRepository = namesRepository;
         }

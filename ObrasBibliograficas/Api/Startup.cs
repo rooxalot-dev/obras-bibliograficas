@@ -27,6 +27,15 @@ namespace Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddCors(options => {
+                options.AddDefaultPolicy(builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                );
+            });
+
             //Define conexão com a base dados
             services.AddEntityFrameworkNpgsql().AddDbContext<ObrasContext>((builder) => {
                 builder.UseNpgsql(Configuration.GetConnectionString("ObrasBibliograficasConn"));
@@ -36,12 +45,13 @@ namespace Api
             services.AddScoped<INamesRepository, NamesRepository>();
 
             // Define serviços
-            services.AddScoped<NamesService, NamesService>();
+            services.AddScoped<AuthorsService, AuthorsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseCors();
             app.UseGlobalExceptionHandler(loggerFactory);
 
             //if (env.IsDevelopment())

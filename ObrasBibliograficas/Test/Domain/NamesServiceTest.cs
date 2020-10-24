@@ -12,12 +12,12 @@ namespace Test.Domain
     public class NamesServiceTest
     {
         private NamesRepositoryMock _repositoryMock;
-        private NamesService _namesService;
+        private AuthorsService _namesService;
 
         public NamesServiceTest() 
         {
             _repositoryMock = new NamesRepositoryMock();
-            _namesService = new NamesService(_repositoryMock);
+            _namesService = new AuthorsService(_repositoryMock);
         }
 
         [Fact(DisplayName = "Deve lançar uma exceção caso a listagem esteja vazia ou nula")]

@@ -11,11 +11,11 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NamesController : ControllerBase
+    public class AuthorsController : ControllerBase
     {
-        private NamesService _namesService;
+        private AuthorsService _namesService;
 
-        public NamesController(NamesService namesService)
+        public AuthorsController(AuthorsService namesService)
         {
             _namesService = namesService;
         }
