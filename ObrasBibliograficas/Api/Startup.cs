@@ -41,7 +41,7 @@ namespace Api
             //Define conexão com a base dados
             services.AddEntityFrameworkNpgsql().AddDbContext<ObrasContext>((builder) => {
                 builder.UseNpgsql(Configuration.GetConnectionString("ObrasBibliograficasConn"));
-            }); 
+            });
 
             // Define repositórios
             services.AddScoped<INamesRepository, NamesRepository>();
@@ -55,6 +55,13 @@ namespace Api
         {
             app.UseCors();
             app.UseGlobalExceptionHandler(loggerFactory);
+
+            // Executa as migrations na base de dados
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<ObrasContext>();
+                context.Database.Migrate();
+            }
 
             app.UseStaticFiles();
             if (!env.IsDevelopment())
