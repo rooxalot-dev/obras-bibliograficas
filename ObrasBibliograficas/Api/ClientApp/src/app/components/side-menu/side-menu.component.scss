@@ -1,0 +1,12 @@
+.mat-drawer-container {
+  height: 100%;
+
+  .side-menu {
+    //background-color: blueviolet;
+    min-width: 250px;
+
+    .active {
+      background-color: rgba($color: #fff, $alpha: .2);
+    }
+  }
+}

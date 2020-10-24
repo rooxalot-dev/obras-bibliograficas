@@ -1,0 +1,11 @@
+<div class="app-container">
+  <app-main-header (toogleClick)="toogleMenu()"></app-main-header>
+
+  <div class="content-container">
+    <app-side-menu [menuObservable]="menuSubject$"></app-side-menu>
+
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

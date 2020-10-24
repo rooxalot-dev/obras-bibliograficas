@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.DependencyInjection;
 using Api.Middlerwares;
 using Microsoft.Extensions.Logging;
@@ -10,6 +11,7 @@ using Data.Repositories;
 using Domain.Services;
 using Data.Context;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Api
 {
@@ -54,17 +56,32 @@ namespace Api
             app.UseCors();
             app.UseGlobalExceptionHandler(loggerFactory);
 
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
-            //else
-            //{
-            //    app.UseHsts();
-            //}
+            app.UseStaticFiles();
+            if (!env.IsDevelopment())
+            {
+                app.UseSpaStaticFiles();
+            }
 
-            app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseMvc(routes => 
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "api/{controller}/{action}/{id?}");
+            });
+
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                    spa.Options.StartupTimeout = TimeSpan.FromSeconds(60); // Increase the timeout if angular app is taking longer to startup
+                }
+            });
         }
     }
 }

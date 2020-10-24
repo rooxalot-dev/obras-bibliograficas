@@ -1,0 +1,26 @@
+.dialog-title {
+  display: flex;
+  justify-content: space-between;
+
+  .close-button {
+    cursor: pointer;
+  }
+}
+
+.mat-step-header {
+  &.active {
+    background-color: rgba(255,255,255,.2);
+  }
+}
+
+.mat-dialog-content {
+  height: 100%;
+}
+
+::ng-deep .mat-horizontal-stepper-header{
+  pointer-events: none !important;
+}
+
+::ng-deep .mat-horizontal-content-container {
+  margin-top: 15px !important;
+}

@@ -1,0 +1,10 @@
+<mat-drawer-container autosize>
+  <mat-drawer #drawer class="side-menu" opened mode="side">
+    <mat-nav-list>
+      <a [routerLink]="link.route"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        mat-list-item *ngFor="let link of links"> {{ link.name }} </a>
+    </mat-nav-list>
+  </mat-drawer>
+</mat-drawer-container>

@@ -1,0 +1,14 @@
+.app-container {
+  height: calc(100% - 64px);
+
+  .content-container {
+    height: 100%;
+    display: flex;
+
+    .content {
+      padding: 20px;
+      //background-color: cornflowerblue;
+      flex: 1;
+    }
+  }
+}

@@ -1,0 +1,52 @@
+<div mat-dialog-title class="dialog-title">
+  <h2>Adicionar Autores</h2>
+  <a class="close-button" (click)="close()">
+    <mat-icon>close</mat-icon>
+  </a>
+</div>
+
+<mat-dialog-content class="mat-typography">
+  <mat-horizontal-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="authorsCount">
+      <ng-template matStepLabel
+        >Informe quantos autores serão cadastrados</ng-template
+      >
+      <mat-form-field>
+        <input
+          [(ngModel)]="authorsCount"
+          name="authorsCount"
+          required
+          matInput
+          placeholder="Quantos autores serão cadastrados?"
+        />
+      </mat-form-field>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Cadastre a quantidade de autores especificada</ng-template>
+
+      <form [formGroup]="authorForm">
+        <div *ngFor="let authorControl of authorForm.controls; index as i">
+          <mat-form-field>
+              <mat-label>Autor {{ i + 1 }}</mat-label>
+              <input matInput [formControl]="authorForm.controls[i]" />
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Revise</ng-template>
+      <div class="registred-author" *ngFor="let authorControl of authorForm.controls; index as i">
+        <span> Autor {{ i + 1 }}: {{ authorForm.controls[i].value }}</span>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <div>
+      <button mat-button *ngIf="stepper.selectedIndex > 0" (click)="previousStep()">Anterior</button>
+      <button mat-button (click)="nextStep()">{{ stepper.selectedIndex < 2 ? 'Próximo' : 'Concluir' }}</button>
+    </div>
+</mat-dialog-actions>
