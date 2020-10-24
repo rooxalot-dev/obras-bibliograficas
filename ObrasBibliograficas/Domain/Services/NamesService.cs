@@ -25,6 +25,12 @@ namespace Domain.Services
                 throw new DomainException("A lista de nomes deve ser informada!");
             }
 
+            var hasNames = authors.Any((author) => !string.IsNullOrEmpty(author.Name));
+            if (!hasNames) 
+            {
+                throw new DomainException("Informe todos os nomes na listagem!");
+            }
+
             var formattedAuthors = authors.Select((author) => {
                 var formattedName = FormatName(author.Name);
                 author.FormattedName = formattedName;

@@ -32,6 +32,21 @@ namespace Test.Domain
             });
         }
 
+        [Fact(DisplayName = "Deve lançar uma exceção caso algum dos nomes esteja vazio ou nulo")]
+        public void DeveLancarExcecaoCasoAlgumNomeEstejaVazioOuNulo()
+        {
+            var authorsList1 = new List<Author> { new Author { Name = "" } };
+            var authorsList2 = new List<Author> { new Author { Name = null } };
+
+            Assert.Throws<DomainException>(() => {
+                _namesService.SaveAuthors(authorsList1);
+            });
+
+            Assert.Throws<DomainException>(() => {
+                _namesService.SaveAuthors(authorsList2);
+            });
+        }
+
         [Fact(DisplayName = "Deve retornar o ultimo sobrenome do nome completo informado totalmente em maiusculo")]
         public void DeveRetornarUltimoSobrenomeMaiusculo()
         {
