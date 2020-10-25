@@ -3,7 +3,7 @@
 Aplicação de teste baseada no seguinte repositório:
     [Repositório Base do Projeto](https://github.com/guideti/obras-bibliograficas/blob/master/TESTE_DOTNET.md)
 
-A aplicação SPA foi inicialmente criada em separado e posteriormente integrada ao projeto. Para analise dos passos de execução, verificar o seguinte repositório:
+A aplicação SPA foi inicialmente criada em separado e posteriormente integrada ao projeto. Para analise dos passos de desenvolvimento, verificar o seguinte repositório:
     [SPA Front](https://github.com/rooxalot-dev/obras-bibliograficas-front)
 
 ## Tecnologias utilizadas na solução
