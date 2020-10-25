@@ -29,9 +29,9 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public List<Author> Get(string nameFilter)
+        public List<Author> Get(string name)
         {
-            var savedAuthors = this._namesService.GetAuthors(nameFilter);
+            var savedAuthors = this._namesService.GetAuthors(name);
 
             return savedAuthors;
         }

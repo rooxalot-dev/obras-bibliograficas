@@ -69,12 +69,7 @@ namespace Api
                 app.UseSpaStaticFiles();
             }
 
-            app.UseMvc(routes => 
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "api/{controller}/{action}/{id?}");
-            });
+            app.UseMvc();
 
             app.UseSpa(spa =>
             {
