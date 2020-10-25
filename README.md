@@ -1,29 +1,23 @@
 # Obras Bibliográficas
 
-(LEIA ATÉ O FINAL)
+Aplicação de teste baseada no seguinte repositório:
+    [Repositório Base do Projeto](https://github.com/guideti/obras-bibliograficas/blob/master/TESTE_DOTNET.md)
 
-Quando se lista o nome de autores de livros, artigos e outras publicações é comum que se apresente o nome do autor ou dos autores da seguinte forma: sobrenome do autor em letras maiúsculas, seguido de uma vírgula e da primeira parte do nome apenas com as iniciais maiúsculas.
+A aplicação SPA foi inicialmente criada em separado e posteriormente integrada ao projeto. Para analise dos passos de execução, verificar o seguinte repositório:
+    [SPA Front](https://github.com/rooxalot-dev/obras-bibliograficas-front)
 
-Por exemplo:
-* SILVA, Joao
-* COELHO, Paulo
-* ARAUJO, Celso de
+## Tecnologias utilizadas na solução
+* .Net Core: v2.2
+* Angular: v10
+* Armazenamento de dados: Postgres
+* ORM: Entity Framework Core
 
-Seu desafio é fazer um programa que leia um número inteiro correspondendo ao número de nomes que será fornecido, e, a seguir, leia estes nomes (que podem estar em qualquer tipo de letra) e imprima a versão formatada no estilo exemplificado acima.
+## Como executar
+* Utilizar um container Postgres para que seja realizada a integração com a aplicação:
+    - Durante o desenvolvimento, utilizei a imagem `postgres` da seguinte forma: `docker run --name teste-postgres -e POSTGRES_PASSWORD=teste@123 -p 5432:5432 -d postgres` 
 
-As seguintes regras devem ser seguidas nesta formatação:
-* o sobrenome será igual a última parte do nome e deve ser apresentado em letras maiúsculas;
-* se houver apenas uma parte no nome, ela deve ser apresentada em letras maiúsculas (sem vírgula): se a entrada for “ Guimaraes” , a saída deve ser “ GUIMARAES”;
-* se a última parte do nome for igual a "FILHO", "FILHA", "NETO", "NETA", "SOBRINHO", "SOBRINHA" ou "JUNIOR" e houver duas ou mais partes antes, a penúltima parte fará parte do sobrenome. Assim: se a entrada for "Joao Silva Neto", a saída deve ser "SILVA NETO, Joao" ; se a entrada for "Joao Neto" , a saída deve ser "NETO, Joao";
-* as partes do nome que não fazem parte do sobrenome devem ser impressas com a inicial maiúscula e com as demais letras minúsculas;
-* "da", "de", "do", "das", "dos" não fazem parte do sobrenome e não iniciam por letra maiúscula.
+* Dentro do diretório `Api`, no arquivo `appsettings.json`, alterar a connection string para acessar a base de dados com as mesmas variáveis que forem configuradas na inicialização do container do Postgres.
 
-## Testes por tecnologia
-* [.NET](https://github.com/guideti/obras-bibliograficas/blob/master/TESTE_DOTNET.md)
-* [Ruby](https://github.com/guideti/obras-bibliograficas/blob/master/TESTE_RUBY.md)
-* [Angular](https://github.com/guideti/obras-bibliograficas/blob/master/TESTE_ANGULAR.md)
+* Dentro do diretório `Api/ClientApp` instalar as dependências utilizando o comando `npm install`.
 
-## Procedimento para entrega
-Realize um fork deste repositório, desenvolva sua solução e encaminhe o seu repositório com o seu código. Arquivos compactados não serão aceitos.
-
-Altere o arquivo README para descrever quais componentes foram utilizados e como sua aplicação deverá ser executada.
+* Novamente dentro do diretório `Api` executar o comando `dotnet run`. A aplicação executará na seguinte url: `http://localhost:5000/`. A aplicação foi configurada para executar a API e a SPA simultaneamente. Também é possível inicializar a SPA separadamente acessando o diretório `ClientApp` e executando o comando `npm start` para que a aplicação execute na url `http://localhost:4200/`
