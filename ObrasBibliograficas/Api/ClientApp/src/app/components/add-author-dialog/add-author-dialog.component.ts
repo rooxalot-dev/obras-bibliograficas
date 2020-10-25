@@ -29,7 +29,7 @@ export class AddAuthorDialogComponent implements OnInit {
 
     switch (stepIndex) {
       case 0:
-          if (!this.authorsCount || this.authorsCount === 0) {
+          if (!this.authorsCount || this.authorsCount <= 0) {
             this.toastr.warning('Especifique quantos autores serão cadastrados!');
             return;
           }

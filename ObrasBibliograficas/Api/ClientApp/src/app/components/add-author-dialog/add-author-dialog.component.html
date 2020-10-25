@@ -15,6 +15,7 @@
         <input
           [(ngModel)]="authorsCount"
           name="authorsCount"
+          type="number"
           required
           matInput
           placeholder="Quantos autores serão cadastrados?"
@@ -36,7 +37,7 @@
     </mat-step>
 
     <mat-step>
-      <ng-template matStepLabel>Revise</ng-template>
+      <ng-template matStepLabel>Revise os dados</ng-template>
       <div class="registred-author" *ngFor="let authorControl of authorForm.controls; index as i">
         <span> Autor {{ i + 1 }}: {{ authorForm.controls[i].value }}</span>
       </div>

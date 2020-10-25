@@ -15,7 +15,14 @@
 
 .mat-dialog-content {
   height: 100%;
+
+  .registred-author {
+      display: block;
+      margin-bottom: 10px;
+  }
 }
+
+
 
 ::ng-deep .mat-horizontal-stepper-header{
   pointer-events: none !important;

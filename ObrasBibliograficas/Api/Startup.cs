@@ -86,7 +86,7 @@ namespace Api
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
-                    spa.Options.StartupTimeout = TimeSpan.FromSeconds(60); // Increase the timeout if angular app is taking longer to startup
+                    spa.Options.StartupTimeout = new TimeSpan(0, 0, 80);
                 }
             });
         }

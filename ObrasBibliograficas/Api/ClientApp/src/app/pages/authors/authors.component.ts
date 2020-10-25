@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddAuthorDialogComponent } from 'src/app/components/add-author-dialog/add-author-dialog.component';
 import { AuthorService } from 'src/app/services/author.service';
 import { ToastrService } from 'ngx-toastr';
+import { IError } from '../../models/IError';
 
 @Component({
   selector: 'app-authors',
@@ -43,7 +44,8 @@ export class AuthorsComponent implements OnInit {
         // formattedCreatedAt: author.createdAt ? intlDateFormatter.format(author.createdAt) : '--',
         // formattedUpdatedAt: author.updatedAt ? intlDateFormatter.format(author.updatedAt) : '--',
       }));
-    });
+    },
+      (error: IError) => this.toastr.error(error.detailed, 'Não foi possível salvar os dados.'));
   }
 
   hasAuthors(): boolean {
@@ -57,9 +59,8 @@ export class AuthorsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: `, result);
-
       const { cancel } = result;
+
       if (cancel && cancel === true) {
         console.log('CLOSED');
       } else {
@@ -68,7 +69,7 @@ export class AuthorsComponent implements OnInit {
             this.toastr.success('Autores salvos com sucesso!')
             this.getAuthors();
           },
-          (error) => this.toastr.error('Não foi possível salvar os dados. Tente novamente!'),
+          (error: IError) => this.toastr.error(error.detailed, 'Não foi possível salvar os dados.'),
         )
       }
     });
